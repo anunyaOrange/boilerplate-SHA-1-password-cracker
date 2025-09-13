@@ -13,16 +13,13 @@ def crack_sha1_hash(hash, use_salts = False):
     for pwd in passwords:
         if use_salts:
             for salt in salts:
-                hex = hashlib.sha1((salt + pwd + salt).encode('utf-8')).hexdigest()
-                if hex == hash:
+                hexPrepended = hashlib.sha1((salt + pwd).encode('utf-8')).hexdigest()
+                hexAppended = hashlib.sha1((pwd + salt).encode('utf-8')).hexdigest()
+                if hexPrepended == hash or hexAppended == hash:
                     return pwd
         else:
             hex = hashlib.sha1(pwd.encode('utf-8')).hexdigest()
             if hex == hash:
                 return pwd
-    return True
+    return "PASSWORD NOT IN DATABASE"
 
-print('xxxxxxxxxxxxxxxxxxxxxxx')
-# crack_sha1_hash('b305921a3723cd5d70a375cd21a61e60aabb84ec')
-print (crack_sha1_hash('53d8b3dc9d39f0184144674e310185e41a87ffd5', True))
-print('xxxxxxxxxxxxxxxxxxxxxxx')
