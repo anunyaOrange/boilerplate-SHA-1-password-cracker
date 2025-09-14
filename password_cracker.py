@@ -22,4 +22,3 @@ def crack_sha1_hash(hash, use_salts = False):
             if hex == hash:
                 return pwd
     return "PASSWORD NOT IN DATABASE"
-
